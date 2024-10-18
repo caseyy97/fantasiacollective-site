@@ -31,7 +31,7 @@ IS_CAPROVER_APP = bool(os.getenv('CAPROVER'))
 
 if IS_CAPROVER_APP == True:
     DEBUG = False
-    ALLOWED_HOSTS = ['.fantasiacollective.info']
+    ALLOWED_HOSTS = ['*.fantasiacollective.info']
     CSRF_TRUSTED_ORIGINS = ['https://fantasiacollective.info']
     CORS_ALLOWED_ORIGINS = ['https://fantasiacollective.info', 'https://files.fantasiacollective.info']
 else:
