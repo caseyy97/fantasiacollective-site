@@ -4,9 +4,9 @@ from info.models import SiteConfig, Headmate
 from django_summernote.widgets import SummernoteWidget
 from django.db import models
 
-def get_site_name():
-    name = SiteConfig.objects.get().name
-    return name
+# def get_site_name():
+#     name = SiteConfig.objects.get().name
+#     return name
 
 class SiteConfigAdmin(SingletonModelAdmin):
 
@@ -51,7 +51,7 @@ class HeadmateAdmin(admin.ModelAdmin):
     ordering = ("order", )
 
 # Register your models here.
-admin.site.site_header = get_site_name()
-admin.site.site_title = get_site_name()
+# admin.site.site_header = get_site_name()
+# admin.site.site_title = get_site_name()
 admin.site.register(SiteConfig, SiteConfigAdmin)
 admin.site.register(Headmate, HeadmateAdmin)
