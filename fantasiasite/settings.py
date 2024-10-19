@@ -20,6 +20,7 @@ SITE_DIR = BASE_DIR / 'info'
 MEDIA_ROOT = SITE_DIR / 'media'
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
@@ -161,7 +162,6 @@ AWS_S3_HOST = AWS_S3_ENDPOINT_URL
 print("Static files being served from Cloudflare")
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATIC_URL = AWS_S3_CUSTOM_DOMAIN
 # else:
 #     print("Static files being served locally")
 #     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
