@@ -19,8 +19,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SITE_DIR = BASE_DIR / 'info'
 MEDIA_ROOT = SITE_DIR / 'media'
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
 
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
@@ -167,6 +165,9 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL')
 AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_S3_CUSTOM_DOMAIN')
 AWS_S3_HOST = AWS_S3_ENDPOINT_URL
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
