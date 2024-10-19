@@ -21,5 +21,5 @@ ARG AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
-RUN python manage.py migrate
+
 CMD ["python", "manage.py", "runserver", "0.0.0.0:80"]
