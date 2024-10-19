@@ -29,7 +29,6 @@ SECRET_KEY = os.environ.get(
 IS_CAPROVER_APP = bool(os.getenv('CAPROVER'))
 
 if IS_CAPROVER_APP == True:
-    print("Yep")
     DEBUG = False
     ALLOWED_HOSTS = ['.fantasiacollective.info']
     CSRF_TRUSTED_ORIGINS = ['https://fantasiacollective.info']
@@ -159,10 +158,12 @@ AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_S3_CUSTOM_DOMAIN')
 AWS_S3_HOST = AWS_S3_ENDPOINT_URL
 
 if IS_CAPROVER_APP == True:
+    print("Static files being served from Cloudflare")
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATIC_URL = AWS_S3_CUSTOM_DOMAIN
 else:
+    print("Static files being served locally")
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
     STATIC_URL = '/static/'
