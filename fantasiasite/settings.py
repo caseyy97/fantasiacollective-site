@@ -181,7 +181,7 @@ if IS_CAPROVER_APP:
                 "endpoint_url": AWS_S3_ENDPOINT_URL,
                 "custom_domain": AWS_S3_CUSTOM_DOMAIN,
             },
-        }
+        },
     }
 else:
     print("Static files being served locally")
@@ -199,7 +199,7 @@ else:
                 "location": STATIC_ROOT,
                 "base_url": STATIC_URL,
             },
-        }
+        },
     }
 
 
