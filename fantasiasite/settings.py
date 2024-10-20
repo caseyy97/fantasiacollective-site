@@ -204,8 +204,6 @@ else:
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MARTOR_THEME = 'bootstrap'
-
 ADMIN_REORDER = (
     {'app': 'info', 'label': 'Site Info', 'models': ('info.SiteConfig', 'info.Headmate')},
     {'app': 'auth', 'models': ('auth.User', )},
