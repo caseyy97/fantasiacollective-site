@@ -1,8 +1,20 @@
 from django.contrib import admin
 from solo.admin import SingletonModelAdmin
 from info.models import SiteConfig, Headmate
+from martor.widgets import AdminMartorWidget
+
+class SiteConfigAdmin(SingletonModelAdmin):
+
+    formfield_overrides = {
+        SiteConfig.header_info: {'widget': AdminMartorWidget},
+        SiteConfig.footer_info: {'widget': AdminMartorWidget},
+    }
 
 class HeadmateAdmin(admin.ModelAdmin):
+
+    formfield_overrides = {
+        Headmate.bio: {'widget': AdminMartorWidget},
+    }
 
     fieldsets = [
         (
@@ -35,5 +47,5 @@ class HeadmateAdmin(admin.ModelAdmin):
     ordering = ("order", )
 
 # Register your models here.
-admin.site.register(SiteConfig, SingletonModelAdmin)
+admin.site.register(SiteConfig, SiteConfigAdmin)
 admin.site.register(Headmate, HeadmateAdmin)

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from django.core.management.utils import get_random_secret_key
 import os, secrets
 
 # aws s3/cloudflare r2 settings
@@ -28,16 +29,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # site dir
 SITE_DIR = BASE_DIR / 'info'
 # media root and url
-MEDIA_ROOT = SITE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 # static root and url
 STATIC_ROOT = SITE_DIR / 'static'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
-
-SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-    default=secrets.token_urlsafe(nbytes=64),
-)
 
 IS_CAPROVER_APP = bool(os.getenv('CAPROVER'))
 
@@ -46,10 +41,17 @@ if IS_CAPROVER_APP == True:
     ALLOWED_HOSTS = ['.fantasiacollective.info']
     CSRF_TRUSTED_ORIGINS = ['https://fantasiacollective.info']
     CORS_ALLOWED_ORIGINS = ['https://fantasiacollective.info', 'https://files.fantasiacollective.info']
+    SECRET_KEY = os.environ.get(
+        "DJANGO_SECRET_KEY",
+        default=secrets.token_urlsafe(nbytes=64),
+    )
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 else:
     DEBUG = True
     CORS_ALLOW_ALL_ORIGINS = True
     ALLOWED_HOSTS = ['*']
+    SECRET_KEY = get_random_secret_key()
+    STATIC_URL = 'static/'
 
 # Application definition
 
@@ -155,50 +157,46 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATICFILES_DIRS = [
-
-]
-
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-# if IS_CAPROVER_APP:
-print("Static files being served from Cloudflare")
-STORAGES = {
-    "default": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {
-            "location": MEDIA_ROOT,
-            "bucket_name": AWS_STORAGE_BUCKET_NAME,
+if IS_CAPROVER_APP:
+    print("Static files being served from Cloudflare")
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "location": MEDIA_ROOT,
+                "bucket_name": AWS_STORAGE_BUCKET_NAME,
+            },
         },
-    },
-    "staticfiles": {
-        "BACKEND": "storages.backends.s3.S3Storage",
-        "OPTIONS": {
-            "bucket_name": AWS_STORAGE_BUCKET_NAME,
+        "staticfiles": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+            "OPTIONS": {
+                "bucket_name": AWS_STORAGE_BUCKET_NAME,
+            },
         },
-    },
-}
-# else:
-#     print("Static files being served locally")
-#     STORAGES = {
-#         "default": {
-#             "BACKEND": "django.core.files.storage.FileSystemStorage",
-#             "OPTIONS": {
-#                 "location": MEDIA_ROOT,
-#                 "base_url": MEDIA_URL,
-#             },
-#         },
-#         "staticfiles": {
-#             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-#             "OPTIONS": {
-#                 "location": STATIC_ROOT,
-#                 "base_url": STATIC_URL,
-#             },
-#         },
-#     }
+    }
+else:
+    print("Static files being served locally")
+    STORAGES = {
+        "default": {
+            "BACKEND": "django.core.files.storage.FileSystemStorage",
+            "OPTIONS": {
+                "location": MEDIA_ROOT,
+                "base_url": MEDIA_URL,
+            },
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+            "OPTIONS": {
+                "location": STATIC_ROOT,
+                "base_url": STATIC_URL,
+            },
+        },
+    }
 
 
 # Default primary key field type
