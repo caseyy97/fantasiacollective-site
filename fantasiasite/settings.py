@@ -165,27 +165,41 @@ if IS_CAPROVER_APP:
     print("Static files being served from Cloudflare")
     MEDIA_BACKEND = "storages.backends.s3.S3Storage"
     STATIC_BACKEND = "storages.backends.s3.S3Storage"
+    STORAGES = {
+        "default": {
+            "BACKEND": MEDIA_BACKEND,
+            "OPTIONS": {
+                "location": MEDIA_ROOT,
+            },
+        },
+        "staticfiles": {
+            "BACKEND": STATIC_BACKEND,
+            "OPTIONS": {
+                "location": STATIC_ROOT,
+            },
+        }
+    }
 else:
     print("Static files being served locally")
     MEDIA_BACKEND = "django.core.files.storage.FileSystemStorage"
     STATIC_BACKEND = "django.contrib.staticfiles.storage.StaticFilesStorage"
-
-STORAGES = {
-    "default": {
-        "BACKEND": MEDIA_BACKEND,
-        "OPTIONS": {
-            "location": MEDIA_ROOT,
-            "base_url": MEDIA_URL,
+    STORAGES = {
+        "default": {
+            "BACKEND": MEDIA_BACKEND,
+            "OPTIONS": {
+                "location": MEDIA_ROOT,
+                "base_url": MEDIA_URL,
+            },
         },
-    },
-    "staticfiles": {
-        "BACKEND": STATIC_BACKEND,
-        "OPTIONS": {
-            "location": STATIC_ROOT,
-            "base_url": STATIC_URL,
-        },
+        "staticfiles": {
+            "BACKEND": STATIC_BACKEND,
+            "OPTIONS": {
+                "location": STATIC_ROOT,
+                "base_url": STATIC_URL,
+            },
+        }
     }
-}
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
