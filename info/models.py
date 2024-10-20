@@ -4,7 +4,7 @@ from solo.models import SingletonModel
 # Create your models here.
 class SiteConfig(SingletonModel):
     name = models.CharField(max_length=50, default="Fantasia Collective")
-    favicon = models.ImageField(blank=True)
+    favicon = models.ImageField(blank=True, name="favicon")
     header_image = models.ImageField(blank=True)
     header_info = models.TextField(blank=True)
     footer_info = models.TextField(blank=True)
