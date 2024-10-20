@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'solo',
     'django_bootstrap5',
     'admin_reorder',
+    'martor',
 ]
 
 MIDDLEWARE = [
@@ -204,6 +205,8 @@ STORAGES = {
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MARTOR_THEME = 'bootstrap'
 
 ADMIN_REORDER = (
     {'app': 'info', 'label': 'Site Info', 'models': ('info.SiteConfig', 'info.Headmate')},

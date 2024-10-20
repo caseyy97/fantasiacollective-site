@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+{% load martortags %}
+{% block css %}
+  <link href="{% static 'plugins/css/ace.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+  <link href="{% static 'martor/css/martor.bootstrap.min.css' %}" type="text/css" media="all" rel="stylesheet" />
+{% endblock %}
 {% block content %}
         <div class="row row-cols-1">
             <div class="col text-center">
@@ -6,7 +11,7 @@
                 <h1>{{ SiteConfig.name }}</h1>
             </div>
             <div class="col">
-                <div class="card info p-3 mt-3 mb-5 border border-3 border-dark">{{ SiteConfig.header_info|safe }}</div>
+                <div class="card info p-3 mt-3 mb-5 border border-3 border-dark">{{ SiteConfig.header_info|safe_markdown }}</div>
             </div>
         </div>
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">{% for headmate in Headmates %}{% if headmate.display %}
@@ -21,7 +26,7 @@
                             {% if headmate.icon %}<img src="{{ headmate.icon.url }}" class="card-icon" alt="{{ headmate.name }} icon" title="{{ headmate.name }} icon">{% endif %}
                         </div>
                         <div>
-                            <p class="card-text">{{ headmate.bio|safe }}</p>
+                            <p class="card-text">{{ headmate.bio|safe_markdown }}</p>
                         </div>
                     </div>
                 </div>
@@ -30,7 +35,7 @@
         {% if SiteConfig.footer_info %}<div class="row row-cols-1">
             <div class="col">
                 <div class="card info p-3 mt-3 border border-3 border-dark text-center">
-                    <h1>{{ SiteConfig.footer_info|safe }}</h1>
+                    <h1>{{ SiteConfig.footer_info|safe_markdown }}</h1>
                     <h5>Last updated {{ SiteConfig.last_updated }}</h5>
                 </div>
             </div>{% endif %}
