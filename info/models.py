@@ -24,7 +24,7 @@ class Headmate(models.Model):
     
     # image and icon
     def file_directory(self, filename):
-        return f"headmates/{self.name.lower}/{filename}"
+        return f"headmates/{self.name.lower()}/{filename}"
     
     image = models.ImageField(upload_to=file_directory)
     image_source = models.URLField(blank=True)
