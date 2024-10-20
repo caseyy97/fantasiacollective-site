@@ -168,6 +168,7 @@ if IS_CAPROVER_APP:
         "default": {
             "BACKEND": "storages.backends.s3.S3Storage",
             "OPTIONS": {
+                "location": "media/",
                 "bucket_name": AWS_STORAGE_BUCKET_NAME,
                 "endpoint_url": AWS_S3_ENDPOINT_URL,
             },
@@ -175,6 +176,7 @@ if IS_CAPROVER_APP:
         "staticfiles": {
             "BACKEND": "storages.backends.s3.S3Storage",
             "OPTIONS": {
+                "location": "static/",
                 "bucket_name": AWS_STORAGE_BUCKET_NAME,
                 "endpoint_url": AWS_S3_ENDPOINT_URL,
             },
