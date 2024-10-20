@@ -31,7 +31,7 @@ SITE_DIR = BASE_DIR / 'info'
 MEDIA_ROOT = SITE_DIR / 'media'
 MEDIA_URL = '/media/'
 # static root and url
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = SITE_DIR / 'static'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 SECRET_KEY = os.environ.get(
