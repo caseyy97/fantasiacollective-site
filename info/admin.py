@@ -1,5 +1,6 @@
 from django.contrib import admin
-from info.models import Headmate
+from solo.admin import SingletonModelAdmin
+from info.models import SiteConfig, Headmate
 
 class HeadmateAdmin(admin.ModelAdmin):
 
@@ -33,4 +34,6 @@ class HeadmateAdmin(admin.ModelAdmin):
     list_display = ("name", "display", "order")
     ordering = ("order", )
 
+# Register your models here.
+admin.site.register(SiteConfig, SingletonModelAdmin)
 admin.site.register(Headmate, HeadmateAdmin)
