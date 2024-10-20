@@ -154,10 +154,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATICFILES_DIRS = [
-    STATIC_ROOT,
-]
-
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
