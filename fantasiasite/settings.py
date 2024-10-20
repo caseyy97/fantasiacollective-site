@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'solo',
     'django_bootstrap5',
-    'django_summernote',
     'admin_reorder',
 ]
 
@@ -207,10 +206,7 @@ STORAGES = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-SUMMERNOTE_THEME = 'bs5'
-
 ADMIN_REORDER = (
     {'app': 'info', 'label': 'Site Info', 'models': ('info.SiteConfig', 'info.Headmate')},
-    {'app': 'django_summernote'},
     {'app': 'auth', 'models': ('auth.User', )},
 )

@@ -1,24 +1,7 @@
 from django.contrib import admin
-from solo.admin import SingletonModelAdmin
-from info.models import SiteConfig, Headmate
-from django_summernote.widgets import SummernoteWidget
-from django.db import models
-
-# def get_site_name():
-#     name = SiteConfig.objects.get().name
-#     return name
-
-class SiteConfigAdmin(SingletonModelAdmin):
-
-    formfield_overrides = {
-        models.TextField: {'widget': SummernoteWidget},
-    }
+from info.models import Headmate
 
 class HeadmateAdmin(admin.ModelAdmin):
-
-    formfield_overrides = {
-        models.TextField: {'widget': SummernoteWidget},
-    }
 
     fieldsets = [
         (
@@ -50,8 +33,4 @@ class HeadmateAdmin(admin.ModelAdmin):
     list_display = ("name", "display", "order")
     ordering = ("order", )
 
-# Register your models here.
-# admin.site.site_header = get_site_name()
-# admin.site.site_title = get_site_name()
-admin.site.register(SiteConfig, SiteConfigAdmin)
 admin.site.register(Headmate, HeadmateAdmin)
