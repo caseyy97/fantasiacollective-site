@@ -172,8 +172,6 @@ STORAGES = {
         "OPTIONS": {
             "location": MEDIA_ROOT,
             "bucket_name": AWS_STORAGE_BUCKET_NAME,
-            "endpoint_url": AWS_S3_ENDPOINT_URL,
-            "custom_domain": AWS_S3_CUSTOM_DOMAIN,
         },
     },
     "staticfiles": {
@@ -181,8 +179,6 @@ STORAGES = {
         "OPTIONS": {
             "location": STATIC_ROOT,
             "bucket_name": AWS_STORAGE_BUCKET_NAME,
-            "endpoint_url": AWS_S3_ENDPOINT_URL,
-            "custom_domain": AWS_S3_CUSTOM_DOMAIN,
         },
     },
 }
