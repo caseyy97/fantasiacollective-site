@@ -13,12 +13,26 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os, secrets
 
+# aws s3/cloudflare r2 settings
+S3_USE_SIGV4 = True 
+AWS_IS_GZIPPED = True
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL')
+AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_S3_CUSTOM_DOMAIN')
+AWS_S3_HOST = AWS_S3_ENDPOINT_URL
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# site dir
 SITE_DIR = BASE_DIR / 'info'
+# media root and url
 MEDIA_ROOT = SITE_DIR / 'media'
 MEDIA_URL = '/media/'
+# static root and url
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
@@ -147,27 +161,31 @@ USE_I18N = True
 
 USE_TZ = True
 
-# if IS_CAPROVER_APP == True:
-print("Static files being served from Cloudflare")
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# else:
-#     print("Static files being served locally")
-#     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-#     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-#     STATIC_URL = '/static/'
+if IS_CAPROVER_APP:
+    print("Static files being served from Cloudflare")
+    MEDIA_BACKEND = "storages.backends.s3.S3Storage"
+    STATIC_BACKEND = "storages.backends.s3.S3Storage"
+else:
+    print("Static files being served locally")
+    MEDIA_BACKEND = "django.core.files.storage.FileSystemStorage"
+    STATIC_BACKEND = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
-S3_USE_SIGV4 = True 
-AWS_IS_GZIPPED = True
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_ENDPOINT_URL = os.environ.get('AWS_S3_ENDPOINT_URL')
-AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_S3_CUSTOM_DOMAIN')
-AWS_S3_HOST = AWS_S3_ENDPOINT_URL
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+STORAGES = {
+    "default": {
+        "BACKEND": MEDIA_BACKEND,
+        "OPTIONS": {
+            "location": MEDIA_ROOT,
+            "base_url": MEDIA_URL,
+        },
+    },
+    "staticfiles": {
+        "BACKEND": STATIC_BACKEND,
+        "OPTIONS": {
+            "location": STATIC_ROOT,
+            "base_url": STATIC_URL,
+        },
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
