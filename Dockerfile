@@ -1,6 +1,6 @@
 #Dockerfile
 
-FROM library/python:3.12.3
+FROM library/python:3.12.2
 
 RUN apk update && apk upgrade && apk add --no-cache make g++ bash git openssh postgresql-dev curl
 
