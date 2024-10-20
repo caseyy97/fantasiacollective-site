@@ -161,46 +161,46 @@ USE_I18N = True
 
 USE_TZ = True
 
-if IS_CAPROVER_APP:
-    print("Static files being served from Cloudflare")
-    STORAGES = {
-        "default": {
-            "BACKEND": "storages.backends.s3.S3Storage",
-            "OPTIONS": {
-                "location": MEDIA_ROOT,
-                "bucket_name": AWS_STORAGE_BUCKET_NAME,
-                "endpoint_url": AWS_S3_ENDPOINT_URL,
-                "custom_domain": AWS_S3_CUSTOM_DOMAIN,
-            },
+# if IS_CAPROVER_APP:
+print("Static files being served from Cloudflare")
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "location": MEDIA_ROOT,
+            "bucket_name": AWS_STORAGE_BUCKET_NAME,
+            "endpoint_url": AWS_S3_ENDPOINT_URL,
+            "custom_domain": AWS_S3_CUSTOM_DOMAIN,
         },
-        "staticfiles": {
-            "BACKEND": "storages.backends.s3.S3Storage",
-            "OPTIONS": {
-                "location": STATIC_ROOT,
-                "bucket_name": AWS_STORAGE_BUCKET_NAME,
-                "endpoint_url": AWS_S3_ENDPOINT_URL,
-                "custom_domain": AWS_S3_CUSTOM_DOMAIN,
-            },
+    },
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "location": STATIC_ROOT,
+            "bucket_name": AWS_STORAGE_BUCKET_NAME,
+            "endpoint_url": AWS_S3_ENDPOINT_URL,
+            "custom_domain": AWS_S3_CUSTOM_DOMAIN,
         },
-    }
-else:
-    print("Static files being served locally")
-    STORAGES = {
-        "default": {
-            "BACKEND": "django.core.files.storage.FileSystemStorage",
-            "OPTIONS": {
-                "location": MEDIA_ROOT,
-                "base_url": MEDIA_URL,
-            },
-        },
-        "staticfiles": {
-            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-            "OPTIONS": {
-                "location": STATIC_ROOT,
-                "base_url": STATIC_URL,
-            },
-        },
-    }
+    },
+}
+# else:
+#     print("Static files being served locally")
+#     STORAGES = {
+#         "default": {
+#             "BACKEND": "django.core.files.storage.FileSystemStorage",
+#             "OPTIONS": {
+#                 "location": MEDIA_ROOT,
+#                 "base_url": MEDIA_URL,
+#             },
+#         },
+#         "staticfiles": {
+#             "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+#             "OPTIONS": {
+#                 "location": STATIC_ROOT,
+#                 "base_url": STATIC_URL,
+#             },
+#         },
+#     }
 
 
 # Default primary key field type
