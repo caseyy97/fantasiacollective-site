@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'info/css/style.css' %}" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>{{ SiteConfig.name }}</title>
-    <link rel="icon" type="image/x-icon" href="{{ SiteConfig.favicon.url }}" />
+    {% if SiteConfig.favicon %}<link rel="icon" type="image/x-icon" href="{{ SiteConfig.favicon.url }}" />{% endif%}
     <meta name="twitter:title" content="{{ SiteConfig.name }}">
     <meta name="twitter:image" content="{{ SiteConfig.header_image.url }}">
 </head>

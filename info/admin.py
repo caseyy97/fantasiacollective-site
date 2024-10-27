@@ -1,17 +1,17 @@
 from django.contrib import admin
 from solo.admin import SingletonModelAdmin
 from info.models import SiteConfig, Headmate
-from martor.widgets import AdminMartorWidget
+from tinymce.widgets import TinyMCE
 from django.db import models
 
 class SiteConfigAdmin(SingletonModelAdmin):
     formfield_overrides = {
-        models.TextField: {'widget': AdminMartorWidget},
+        models.TextField: {'widget': TinyMCE},
     }
 
 class HeadmateAdmin(admin.ModelAdmin):
     formfield_overrides = {
-        models.TextField: {'widget': AdminMartorWidget},
+        models.TextField: {'widget': TinyMCE},
     }
 
     fieldsets = [

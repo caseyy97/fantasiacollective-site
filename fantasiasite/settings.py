@@ -14,7 +14,7 @@ from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 import os, secrets
 
-# aws s3/cloudflare r2 settings
+# cloudflare r2 settings
 S3_USE_SIGV4 = True 
 AWS_IS_GZIPPED = True
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -50,8 +50,8 @@ else:
     DEBUG = True
     CORS_ALLOW_ALL_ORIGINS = True
     ALLOWED_HOSTS = ['*']
-    SECRET_KEY = get_random_secret_key()
-    STATIC_URL = 'static/'
+    SECRET_KEY = secrets.token_urlsafe(nbytes=64)
+    STATIC_URL = '/static/'
 
 # Application definition
 
@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'solo',
     'django_bootstrap5',
     'admin_reorder',
-    'martor',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
