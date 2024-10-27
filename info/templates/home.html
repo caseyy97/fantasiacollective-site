@@ -13,7 +13,7 @@
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">{% for headmate in Headmates %}{% if headmate.display %}
         <div class="col mb-4">
                 <div class="card d-flex h-100" {% if headmate.custom_colour_enabled %}style="{% if headmate.bg_colour %}background-color: {{ headmate.bg_colour }};{% endif %}{% if headmate.shadow_colour %}box-shadow: 5px 10px {{ headmate.shadow_colour }};{% endif %}{% if headmate.border_colour %}border-color: {{ headmate.border_colour }};{% endif %}"{% endif %}>
-                    <img src="{{ headmate.image.url }}" class="m-5" alt="{{ headmate.name }}" title="{{ headmate.name }}"{% if headmate.custom_colour_enabled %}{% if headmate.border_colour %} style="border-style: solid; border-width: 3px; border-color: {{ headmate.border_colour }};"{% endif %}{% endif %}>
+                    <img class="m-5 headmate-img" src="{{ headmate.image.url }}" alt="{{ headmate.name }}" title="{{ headmate.name }}"{% if headmate.custom_colour_enabled %}{% if headmate.border_colour %} style="border-style: solid; border-width: 3px; border-color: {{ headmate.border_colour }};"{% endif %}{% endif %}>
                     <div class="card-body text-center">
                         <div>
                             <h3 class="card-title">{{ headmate.name }}</h3>
